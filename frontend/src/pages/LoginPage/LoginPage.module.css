@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 1rem;
+  gap: 2rem;
+  height: 100vh;
+}
+
+.logo {
+  width: 60px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.input {
+  width: 15.625rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: var(--gray-100);
+}
+
+.button {
+  background-color: var(--blue-200);
+  width: 100%;
+  padding: 0.5rem 0;
+  border-radius: 0.25rem;
+  border: none;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--blue-300);
+}
+
+.signUp {
+  font-size: 0.75rem;
+  color: var(--blue-200);
+}

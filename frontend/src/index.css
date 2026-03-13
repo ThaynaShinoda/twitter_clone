@@ -1,0 +1,21 @@
+:root {
+  --gray-100: #F7F9F9;
+  --gray-200: #E1E8ED;
+  --blue-200: #1DA1F2;
+  --blue-300: #0d95e9;
+  --white: #FFFFFF;
+  --font-text: #14171A;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--font-text);
+}
+
+body,
+input,
+button,
+textarea {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

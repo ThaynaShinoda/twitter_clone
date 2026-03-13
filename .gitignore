@@ -23,7 +23,27 @@ __pycache__/
 
 # Logs
 *.log
+logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # Sistema operacional
 .DS_Store
 Thumbs.db
+
+# Front-end
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

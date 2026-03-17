@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+}
+
+.formContainerTwo {
+  position: relative;
+}
+
+.formLogo {
+  position: absolute;
+  top: -280px;
+  width: 60px;
+  color: var(--blue-200);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.input {
+  width: 15.625rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: var(--gray-100);
+  font-size: 1rem;
+}
+
+.button {
+  background-color: var(--blue-200);
+  width: 15.625rem;
+  padding: 0.5rem 0;
+  margin-top: 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--blue-300);
+}
+
+.loginText {
+  font-size: 0.8rem;
+  color: var(--font-text);
+  position: absolute;
+  top: 400px;
+}
+
+.loginLink {
+  color: var(--blue-200);
+}
+
+.sideText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--blue-200);
+  height: 100vh;
+  width: 40%;
+  padding: 1rem;
+}
+
+.text {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.logoBirdTwitter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.sideLogoBird {
+  color: var(--white);
+  height: 40px;
+  line-height: none;
+}
+.sideLogoTwitter {
+  color: var(--white);
+  height: 40px;
+  width: 200px;
+  line-height: none;
+}

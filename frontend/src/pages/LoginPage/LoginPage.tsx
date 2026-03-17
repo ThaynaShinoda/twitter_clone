@@ -1,18 +1,72 @@
-import { Link } from "react-router-dom"
-import logo_bird from "../../assets/twitter_logo_bird.svg"
-import styles from "./LoginPage.module.css"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Link } from "react-router-dom";
 
-export function LoginPage(){
+import LogoBird from "../../assets/twitter_logo_bird.svg?react";
+import styles from "./LoginPage.module.css";
+import { AuthForm } from "../../components/AuthForm/AuthForm";
+import type { FieldProps } from "../../hooks/useForm";
+import { useState } from "react";
+import api from "../../services/api";
+
+const loginFields: FieldProps[] = [
+  {
+    name: "email",
+    type: "email",
+    placeholder: "Email address",
+    required: true,
+  },
+  {
+    name: "password",
+    type: "password",
+    placeholder: "Password",
+    required: true,
+    minLength: 8,
+  },
+];
+
+export function LoginPage() {
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  // const navigate = useNavigate();
+
+  async function handleLogin(values: Record<string, string>) {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await api.post("/auth/login/", values);
+      console.log("Tudo certo");
+    } catch (error: any) {
+      if (error.response?.data?.detail) {
+        setError(error.response.data.detail);
+      } else if (error.response?.data) {
+        setError(JSON.stringify(error.response.data));
+      } else {
+        setError("Erro inesperado. Tente novamente.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className={styles.container}>
-      <img src={logo_bird} alt="Logo bird blue" className={styles.logo}/>
+      <LogoBird className={styles.logo} />
+
       <h1>Log in to Twitter</h1>
-      <form className={styles.form}>
-        <input className={styles.input} type="email" name="" id="" placeholder="Email address" />
-        <input className={styles.input} type="password" name="" id="" placeholder="Password" />
-        <button className={styles.button} type="submit">Log in</button>
-      </form>
-      <Link className={styles.signUp} to="/register">Sign up for Twitter</Link>
+      {error && <div>{error}</div>}
+      {loading ? (
+        <p>Carregando...</p>
+      ) : (
+        <AuthForm
+          fields={loginFields}
+          submitText="Login"
+          onSubmit={handleLogin}
+        />
+      )}
+      <Link className={styles.signUpLink} to="/register">
+        Sign up for Twitter
+      </Link>
     </div>
-  )
+  );
 }

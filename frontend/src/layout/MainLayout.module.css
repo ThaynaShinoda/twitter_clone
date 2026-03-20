@@ -1,0 +1,17 @@
+.layout {
+  display: grid;
+  grid-template-columns: 250px 600px 400px;
+  background-color: var(--white);
+  padding: 1rem;
+  margin: 0 auto;
+  justify-content: center;
+  min-height: 100vh;  
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content {
+  overflow-y: auto;
+  height: 100vh;
+  scrollbar-width: none;
+}

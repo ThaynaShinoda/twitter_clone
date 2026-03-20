@@ -1,0 +1,111 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  border-left: 1px solid var(--gray-200);
+  border-right: 1px solid var(--gray-200);
+}
+
+.tweetBox {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+  border-top: 1px solid var(--gray-200);
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.textBox {
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.textarea {
+  width: 100%;
+  height: 100px;
+  padding: 1rem;
+  font-size: 20px;
+  outline: none;
+  border: none;
+  background-color: var(--gray-100);
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.5;
+}
+
+.button {
+  background-color: var(--blue-200);
+  width: 79px;
+  height: 36px;
+  padding: 0.5rem 0;
+  border-radius: 20px;
+  border: none;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--blue-300);
+}
+
+
+.postsItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.postsAvatar {
+  width: 48px;
+  border-radius: 50%;
+}
+
+.postsTweet {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.postsUsername{
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.commentsAndLikes {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.commentsAndLikes div{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gray-300);
+}

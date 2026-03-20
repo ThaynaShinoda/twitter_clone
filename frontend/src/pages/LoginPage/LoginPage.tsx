@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import LogoBird from "../../assets/twitter_logo_bird.svg?react";
 import styles from "./LoginPage.module.css";
@@ -7,6 +7,7 @@ import { AuthForm } from "../../components/AuthForm/AuthForm";
 import type { FieldProps } from "../../hooks/useForm";
 import { useState } from "react";
 import api from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 
 const loginFields: FieldProps[] = [
   {
@@ -27,15 +28,18 @@ const loginFields: FieldProps[] = [
 export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   async function handleLogin(values: Record<string, string>) {
     setLoading(true);
     setError(null);
 
     try {
-      await api.post("/auth/login/", values);
-      console.log("Tudo certo");
+      const response = await api.post("/auth/login/", values);
+      const token = response.data.access;
+      login(token);
+      navigate("/feed");
     } catch (error: any) {
       if (error.response?.data?.detail) {
         setError(error.response.data.detail);

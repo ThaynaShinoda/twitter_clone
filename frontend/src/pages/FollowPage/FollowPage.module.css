@@ -1,0 +1,7 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  min-height: 100vh;
+  border-left: 1px solid var(--gray-200);
+  border-right: 1px solid var(--gray-200);
+}

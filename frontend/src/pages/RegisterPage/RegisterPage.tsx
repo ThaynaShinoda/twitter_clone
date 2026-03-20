@@ -8,6 +8,7 @@ import { AuthForm } from "../../components/AuthForm/AuthForm";
 import type { FieldProps } from "../../hooks/useForm";
 import api from "../../services/api";
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 const registerFields: FieldProps[] = [
   { name: "username", type: "text", placeholder: "Name", required: true },
@@ -30,21 +31,25 @@ export function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   async function handleRegister(values: Record<string, string>) {
     setLoading(true);
     setError(null);
     try {
       await api.post("/auth/register/", values);
-      navigate("/");
-      
+      const response = await api.post("/auth/login/", {
+        email: values.email,
+        password: values.password,
+      });
+      const token = response.data.access;
+      login(token);
+      navigate("/feed");
     } catch (error: any) {
       if (error.response?.data?.detail) {
         setError(error.response.data.detail);
-
       } else if (error.response?.data) {
         setError(JSON.stringify(error.response.data));
-
       } else {
         setError("Erro inesperado. Tente novamente.");
       }

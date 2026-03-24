@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Follow
-from .serializers import RegisterSerializer, ChangePasswordSerializer, UserProfileSerializer, UpdateProfileSerializer, FollowUserSerializer
+from .serializers import RegisterSerializer, ChangePasswordSerializer, UserProfileSerializer, UpdateProfileSerializer, FollowUserSerializer, UserListSerializer
 
 
 User = get_user_model()
@@ -76,3 +76,10 @@ class FollowingListView(generics.ListAPIView):
     def get_queryset(self):
         pk = self.kwargs.get('pk')
         return User.objects.filter(followers__following=pk)
+    
+class UserListView(generics.ListAPIView):
+    serializer_class = UserListSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        return User.objects.exclude(pk=self.request.user.pk).order_by("username")

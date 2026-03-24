@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from .models import Follow
 
 User = get_user_model()
 
@@ -64,3 +65,20 @@ class FollowUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'avatar')
         read_only_fields = fields
+
+class UserListSerializer(serializers.ModelSerializer):
+    is_following = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ("id", "username", "avatar", "is_following")
+        read_only_fields = fields
+
+    def get_is_following(self, obj):
+        request = self.context.get("request")
+        if not request or not request.user.is_authenticated:
+            return False
+        return Follow.objects.filter(
+            follower=request.user,
+            following=obj
+        ).exists()

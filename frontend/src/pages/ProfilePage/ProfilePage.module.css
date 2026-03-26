@@ -1,7 +1,155 @@
 .container {
   display: flex;
-  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
   min-height: 100vh;
   border-left: 1px solid var(--gray-200);
   border-right: 1px solid var(--gray-200);
+  gap: 1rem;
 }
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 600px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.profileHeader {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 1rem;
+  position: relative;
+  top: 100px;
+}
+
+.background {
+  background-color: var(--blue-100);
+  width: 600px;
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 100px;
+}
+
+.editButton {
+  background-color: var(--blue-200);
+  width: 79px;
+  height: 36px;
+  padding: 0.5rem 0;
+  border-radius: 20px;
+  border: none;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.editButton:hover {
+  background-color: var(--blue-300);
+}
+
+.avatarUsername {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.avatarUsername p {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.bioContainer {
+  width: 100%;
+  padding: 1rem;
+  word-break: break-word;
+  white-space: pre-line;
+}
+
+.countContainer{
+  margin-top: 1rem;
+}
+
+.countContainer span {
+  font-weight: 700;
+}
+
+
+.postsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.postsContainer h4 {
+  padding: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+  border-top: 1px solid var(--gray-200);
+  width: 100%;
+  text-align: center;
+}
+
+
+
+.postsItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.postsAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.postsTweet {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.postsUsername{
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.commentsAndLikes {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.commentsAndLikes div{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gray-300);
+}
+

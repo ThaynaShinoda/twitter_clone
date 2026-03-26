@@ -5,7 +5,6 @@
   min-height: 100vh;
   border-left: 1px solid var(--gray-200);
   border-right: 1px solid var(--gray-200);
-  
 }
 
 .followList {
@@ -13,7 +12,7 @@
   margin-top: 1rem;
 }
 
-.followItem{
+.followItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,7 +34,10 @@
 
 .avatar {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
 .followButton {

@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 
 const registerFields: FieldProps[] = [
-  { name: "username", type: "text", placeholder: "Name", required: true },
+  { name: "username", type: "text", placeholder: "Username", required: true },
   {
     name: "email",
     type: "email",

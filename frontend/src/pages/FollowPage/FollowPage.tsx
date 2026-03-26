@@ -41,7 +41,7 @@ export function FollowPage() {
 
   return (
     <div className={styles.container}>
-      <h3>Follow Page</h3>
+      <h3>Follow</h3>
       <div className={styles.followList}>
         {users.map((user) => (
           <div key={user.id} className={styles.followItem}>

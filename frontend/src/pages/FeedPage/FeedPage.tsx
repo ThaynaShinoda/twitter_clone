@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import api from "../../services/api";
@@ -8,13 +8,14 @@ import { ChatCircleIcon, HeartIcon } from "@phosphor-icons/react";
 import styles from "./FeedPage.module.css";
 import { CommentModal } from "../../components/CommentModal/CommentModal";
 import defaultProfile from "../../assets/default_profile_normal_blue.png";
+import type { Post } from "../../types/Post";
 
 export function FeedPage() {
   const { user } = useAuth();
   const [tweet, setTweet] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [commentModal, setCommentModal] = useState<{
     open: boolean;
     postId: number | null;
@@ -39,7 +40,7 @@ export function FeedPage() {
       await api.post("posts/", { content: tweet });
       await fetchFeed();
       setTweet("");
-    } catch (err: any) {
+    } catch (err) {
       setError("Erro ao enviar tweet.");
     } finally {
       setLoading(false);

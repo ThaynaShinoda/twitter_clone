@@ -6,6 +6,7 @@
   border-left: 1px solid var(--gray-200);
   border-right: 1px solid var(--gray-200);
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .infoContainer {
@@ -107,7 +108,14 @@
   text-align: center;
 }
 
-
+.postLink {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  width: 480px;
+}
 
 .postsItem {
   display: flex;

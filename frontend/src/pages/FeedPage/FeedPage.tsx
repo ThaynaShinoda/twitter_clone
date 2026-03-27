@@ -9,6 +9,8 @@ import styles from "./FeedPage.module.css";
 import { CommentModal } from "../../components/CommentModal/CommentModal";
 import defaultProfile from "../../assets/default_profile_normal_blue.png";
 import type { Post } from "../../types/Post";
+import { Link } from "react-router-dom";
+import { formatDate } from "../../utils/formatDate";
 
 export function FeedPage() {
   const { user } = useAuth();
@@ -104,13 +106,17 @@ export function FeedPage() {
             alt="Avatar"
             className={styles.postsAvatar}
           />
-
           <div className={styles.postsTweet}>
-            <div className={styles.postsUsername}>
-              <b>@{post.username}</b>
-              <span>7m</span>
-            </div>
-            <p>{post.content}</p>
+            <Link
+              to={`/posts/${post.id}/`}
+              className={styles.postLink}
+            >
+              <div className={styles.postsUsername}>
+                <b>@{post.username}</b>
+                <span>{formatDate(post.created_at)}</span>
+              </div>
+              <p>{post.content}</p>
+            </Link>
             <div className={styles.commentsAndLikes}>
               <div>
                 <ChatCircleIcon

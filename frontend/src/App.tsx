@@ -6,6 +6,7 @@ import { FeedPage } from "./pages/FeedPage/FeedPage"
 import { MainLayout } from "./layout/MainLayout"
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage"
 import { FollowPage } from "./pages/FollowPage/FollowPage"
+import { PostPage } from "./pages/PostPage/PostPage"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/feed" element={<FeedPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/follow" element={<FollowPage />} />
+          <Route path="/posts/:id" element={<PostPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

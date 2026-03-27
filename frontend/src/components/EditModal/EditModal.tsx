@@ -55,7 +55,7 @@ export function EditModal({ open, onClose, onSave, user }: EditModalProps) {
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               className={styles.textarea}
-              placeholder="Conte um pouco sobre voce"
+              placeholder="Conte um pouco sobre você"
             />
           </label>
 

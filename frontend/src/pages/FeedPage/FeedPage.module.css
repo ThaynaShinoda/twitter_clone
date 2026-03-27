@@ -5,6 +5,7 @@
   min-height: 100vh;
   border-left: 1px solid var(--gray-200);
   border-right: 1px solid var(--gray-200);
+  margin-bottom: 1rem;
 }
 
 .tweetBox {
@@ -78,6 +79,8 @@
   width: 100%;
   padding: 1rem;
   border-bottom: 1px solid var(--gray-200);
+  text-decoration: none;
+  color: inherit;
 }
 
 .postsAvatar {
@@ -92,6 +95,15 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.postLink {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  width: 480px;
 }
 
 .postsUsername{

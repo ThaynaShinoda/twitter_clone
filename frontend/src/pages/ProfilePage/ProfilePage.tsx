@@ -7,6 +7,8 @@ import { ChatCircleIcon, HeartIcon } from "@phosphor-icons/react";
 import { CommentModal } from "../../components/CommentModal/CommentModal";
 import type { Post } from "../../types/Post";
 import { EditModal } from "../../components/EditModal/EditModal";
+import { formatDate } from "../../utils/formatDate";
+import { Link } from "react-router-dom";
 
 export function ProfilePage() {
   const { user, setUser } = useAuth();
@@ -98,11 +100,13 @@ export function ProfilePage() {
                   className={styles.postsAvatar}
                 />
                 <div className={styles.postsTweet}>
-                  <div className={styles.postsUsername}>
-                    <b>@{post.username}</b>
-                    <span>7m</span>
-                  </div>
-                  <p>{post.content}</p>
+                  <Link to={`/posts/${post.id}/`} className={styles.postLink}>
+                    <div className={styles.postsUsername}>
+                      <b>@{post.username}</b>
+                      <span>{formatDate(post.created_at)}</span>
+                    </div>
+                    <p>{post.content}</p>
+                  </Link>
                   <div className={styles.commentsAndLikes}>
                     <div>
                       <ChatCircleIcon

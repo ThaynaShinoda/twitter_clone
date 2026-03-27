@@ -69,3 +69,7 @@
   object-fit: cover;
   display: block;
 }
+
+.usernameAndContent {
+  width: 90%;
+}

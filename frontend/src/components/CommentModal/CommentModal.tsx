@@ -55,7 +55,7 @@ export function CommentModal({
       {tweet && (
         <div className={styles.tweetPreview}>
           <img src={tweet.avatar || defaultProfile} alt="Avatar" />
-          <div>
+          <div className={styles.usernameAndContent}>
             <b>@{tweet.username}</b>
             <p>{tweet.content}</p>
           </div>

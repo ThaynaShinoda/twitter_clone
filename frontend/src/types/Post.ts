@@ -7,4 +7,5 @@ export interface Post {
   likes_count: number;
   is_liked: boolean;
   created_at: string;
+  user_id: number;
 }

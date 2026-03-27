@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import api from "../../services/api";
-import { ChatCircleIcon, HeartIcon } from "@phosphor-icons/react";
+import { ChatCircleIcon, HeartIcon, TrashIcon } from "@phosphor-icons/react";
 
 import styles from "./FeedPage.module.css";
 import { CommentModal } from "../../components/CommentModal/CommentModal";
@@ -58,6 +58,19 @@ export function FeedPage() {
     await fetchFeed();
   }
 
+  async function handleDeletePost(postId: number) {
+    if (!window.confirm("Tem certeza que deseja deletar este tweet?")) {
+      return;
+    }
+
+    try {
+      await api.delete(`posts/${postId}/`);
+      await fetchFeed();
+    } catch {
+      alert("Erro ao deletar tweet.");
+    }
+  }
+
   return (
     <div className={styles.container}>
       <h3>Home</h3>
@@ -107,10 +120,7 @@ export function FeedPage() {
             className={styles.postsAvatar}
           />
           <div className={styles.postsTweet}>
-            <Link
-              to={`/posts/${post.id}/`}
-              className={styles.postLink}
-            >
+            <Link to={`/posts/${post.id}/`} className={styles.postLink}>
               <div className={styles.postsUsername}>
                 <b>@{post.username}</b>
                 <span>{formatDate(post.created_at)}</span>
@@ -147,6 +157,18 @@ export function FeedPage() {
                 />
                 <span>{post.likes_count}</span>
               </div>
+              {user && post.user_id === user.id && (
+                <div
+                  onClick={() => handleDeletePost(post.id)}
+                  style={{ cursor: "pointer", marginLeft: "20rem" }}
+                >
+                  <TrashIcon
+                    size={20}
+                    color="var(--gray-300)"
+                    weight="regular"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

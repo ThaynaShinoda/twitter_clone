@@ -3,7 +3,7 @@ import defaultProfile from "../../assets/default_profile_normal_blue.png";
 import { useAuth } from "../../context/AuthContext";
 import api from "../../services/api";
 import { useEffect, useState } from "react";
-import { ChatCircleIcon, HeartIcon } from "@phosphor-icons/react";
+import { ChatCircleIcon, HeartIcon, TrashIcon } from "@phosphor-icons/react";
 import { CommentModal } from "../../components/CommentModal/CommentModal";
 import type { Post } from "../../types/Post";
 import { EditModal } from "../../components/EditModal/EditModal";
@@ -55,6 +55,18 @@ export function ProfilePage() {
 
     const profileResponse = await api.get("profile/");
     setUser(profileResponse.data);
+  }
+
+  async function handleDeletePost(postId: number) {
+    if (!window.confirm("Tem certeza que deseja deletar este tweet?")) {
+      return;
+    }
+    try {
+      await api.delete(`posts/${postId}/`);
+      await fetchMyPosts();
+    } catch {
+      alert("Erro ao deletar tweet.");
+    }
   }
 
   return (
@@ -137,6 +149,18 @@ export function ProfilePage() {
                       />
                       <span>{post.likes_count}</span>
                     </div>
+                    {user && post.user_id === user.id && (
+                      <div
+                        onClick={() => handleDeletePost(post.id)}
+                        style={{ cursor: "pointer", marginLeft: "20rem" }}
+                      >
+                        <TrashIcon
+                          size={20}
+                          color="var(--gray-300)"
+                          weight="regular"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

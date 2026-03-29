@@ -10,18 +10,18 @@
 
 .logo {
   color: #1d9bf0;
-  width: 24px;
-  margin-bottom: 24px;
+  width: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .menuItem {
   display: flex;
-  gap: 22px;
+  gap: 1.375rem;
   align-items: start;
 }
 
 .linkText {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: normal;
   color: var(--font-text);
 }
@@ -33,15 +33,15 @@
 .userBox{
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.25rem;
   font-size: 1.25rem;
   position: absolute;
   bottom: 2rem;
 }
 
 .avatar{
-  width: 50px;
-  height: 50px;
+  width: 3.125rem;
+  height: 3.125rem;
   border-radius: 50%;
   object-fit: cover;
   display: block;

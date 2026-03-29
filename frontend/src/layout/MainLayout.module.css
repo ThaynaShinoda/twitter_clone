@@ -1,6 +1,6 @@
 .layout {
   display: grid;
-  grid-template-columns: 250px 600px 400px;
+  grid-template-columns: 15.625rem 37.5rem 25rem;
   background-color: var(--white);
   padding: 1rem;
   margin: 0 auto;

@@ -5,7 +5,6 @@
   gap: 10px;
   width: 100%;
   padding: 0 4rem;
-  
 }
 
 .logo {
@@ -24,13 +23,14 @@
   font-size: 1.25rem;
   font-weight: normal;
   color: var(--font-text);
+  cursor: pointer;
 }
 
 .menuItem.selected {
   font-weight: 700;
 }
 
-.userBox{
+.userBox {
   display: flex;
   align-items: center;
   gap: 1.25rem;
@@ -39,10 +39,64 @@
   bottom: 2rem;
 }
 
-.avatar{
+.avatar {
   width: 3.125rem;
   height: 3.125rem;
   border-radius: 50%;
   object-fit: cover;
   display: block;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0.25rem 0;
+    gap: 0;
+    align-items: center;
+    background-color: var(--white);
+    border-top: 1px solid var(--blue-200);
+    z-index: 100;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .linkText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    opacity: 0;
+  }
+
+  .userBox {
+    display: none;
+  }
+
+  .menuItem {
+    gap: 0;
+    width: auto;
+    padding: 1rem;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .menuItem a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

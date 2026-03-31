@@ -160,7 +160,7 @@ export function FeedPage() {
               {user && post.user_id === user.id && (
                 <div
                   onClick={() => handleDeletePost(post.id)}
-                  style={{ cursor: "pointer", marginLeft: "20rem" }}
+                  className={styles.deleteButton}
                 >
                   <TrashIcon
                     size={20}

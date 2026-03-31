@@ -79,13 +79,13 @@ export function PostPage() {
     <div className={styles.container}>
       <div className={styles.tweetPreview}>
         <img src={post.avatar || defaultProfile} alt="Avatar" />
-        <div>
+        <div className={styles.content}>
           <div className={styles.usernameAndContent}>
             <b>@{post.username}</b>
             <p>{post.content}</p>
+            <span>{formatDate(post.created_at)}</span>
           </div>
           <div className={styles.likesAndCreated}>
-            <span>{formatDate(post.created_at)}</span>
             <div
               onClick={() => handleLike(post.id)}
               className={styles.likeButton}
@@ -111,25 +111,25 @@ export function PostPage() {
               alt="Avatar"
               className={styles.avatar}
             />
-            <div className={styles.usernameAndContent}>
-              <b>@{comment.username}</b>
-              <p>{comment.content}</p>
-              <div className={styles.dateAndDelete}>
+            <div className={styles.content}>
+              <div className={styles.usernameAndContent}>
+                <b>@{comment.username}</b>
+                <p>{comment.content}</p>
                 <p className={styles.date}>{formatDate(comment.created_at)}</p>
-                {user && comment.user_id === user.id && (
-                  <div
-                    onClick={() => handleDeleteComment(comment.id)}
-                    className={styles.deleteButton}
-                    title="Deletar comentário"
-                  >
-                    <TrashIcon
-                      size={20}
-                      color="var(--gray-300)"
-                      weight="regular"
-                    />
-                  </div>
-                )}
               </div>
+              {user && comment.user_id === user.id && (
+                <div
+                  onClick={() => handleDeleteComment(comment.id)}
+                  className={styles.deleteButton}
+                  title="Deletar comentário"
+                >
+                  <TrashIcon
+                    size={20}
+                    color="var(--gray-300)"
+                    weight="regular"
+                  />
+                </div>
+              )}
             </div>
           </div>
         ))}

@@ -1,9 +1,10 @@
 import { SidebarMenu } from "../components/SidebarMenu/SidebarMenu";
-import { HouseIcon, UserIcon, UserPlusIcon} from "@phosphor-icons/react"
+import { HouseIcon, UserIcon, UserPlusIcon } from "@phosphor-icons/react";
 
-import styles from "./MainLayout.module.css"
+import styles from "./MainLayout.module.css";
 import { Outlet } from "react-router-dom";
 import { SidebarInfos } from "../components/SidebarInfos/SidebarInfos";
+import { useState } from "react";
 
 const menuItems = [
   { to: "/feed", label: "Home", icon: <HouseIcon size={24} /> },
@@ -12,13 +13,23 @@ const menuItems = [
 ];
 
 export function MainLayout() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   return (
     <div className={styles.layout}>
-      <SidebarMenu items={menuItems} />
+      <SidebarMenu
+        items={menuItems}
+        className={styles.sidebarMenu}
+        onDrawerToggle={() => setIsDrawerOpen(!isDrawerOpen)}
+      />
       <main className={styles.content}>
         <Outlet />
       </main>
-      <SidebarInfos />
+      <SidebarInfos
+        className={styles.sidebarInfos}
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+      />
     </div>
   );
 }

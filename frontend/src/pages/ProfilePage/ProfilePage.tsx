@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styles from "./ProfilePage.module.css";
 import defaultProfile from "../../assets/default_profile_normal_blue.png";
 import { useAuth } from "../../context/AuthContext";
@@ -41,20 +42,53 @@ export function ProfilePage() {
     await fetchMyPosts();
   }
 
-  async function handleSaveProfile(data: { bio: string; avatar?: File }) {
-    const formData = new FormData();
-    formData.append("bio", data.bio);
+  async function handleSaveProfile(data: {
+    bio?: string;
+    avatar?: File;
+    username?: string;
+    currentPassword?: string;
+    newPassword?: string;
+  }) {
+    try {
+      // Alteração de senha
+      if (data.currentPassword && data.newPassword) {
+        await api.put("auth/change-password/", {
+          current_password: data.currentPassword,
+          new_password: data.newPassword,
+        });
+        alert("Senha alterada com sucesso!");
+        return;
+      }
 
-    if (data.avatar) {
-      formData.append("avatar", data.avatar);
+      // Alteração de perfil
+      const formData = new FormData();
+
+      if (data.bio !== undefined) {
+        formData.append("bio", data.bio);
+      }
+
+      if (data.username !== undefined) {
+        formData.append("username", data.username);
+      }
+
+      if (data.avatar) {
+        formData.append("avatar", data.avatar);
+      }
+
+      await api.patch("profile/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      const profileResponse = await api.get("profile/");
+      setUser(profileResponse.data);
+      alert("Perfil atualizado com sucesso!");
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.detail ||
+        error.response?.data?.[0] ||
+        "Erro ao atualizar perfil";
+      alert(`Erro: ${errorMessage}`);
     }
-
-    await api.patch("profile/", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-
-    const profileResponse = await api.get("profile/");
-    setUser(profileResponse.data);
   }
 
   async function handleDeletePost(postId: number) {
@@ -178,7 +212,7 @@ export function ProfilePage() {
         onCommentSuccess={fetchMyPosts}
       />
       <EditModal
-        key={`${editModalOpen}-${user?.bio ?? ""}-${user?.avatar ?? ""}`}
+        key={`${editModalOpen}-${user?.bio ?? ""}-${user?.username ?? ""}-${user?.avatar ?? ""}`}
         open={editModalOpen}
         onClose={() => setEditModalOpen(false)}
         user={user ?? null}

@@ -6,18 +6,55 @@ import type { User } from "../../types/User";
 interface EditModalProps {
   open: boolean;
   onClose: () => void;
-  user: Pick<User, "bio" | "avatar"> | null;
-  onSave: (data: { bio: string; avatar?: File }) => Promise<void>;
+  user: Pick<User, "username" | "bio" | "avatar"> | null;
+  onSave: (data: {
+    bio?: string;
+    avatar?: File;
+    username?: string;
+    currentPassword?: string;
+    newPassword?: string;
+  }) => Promise<void>;
 }
 
 export function EditModal({ open, onClose, onSave, user }: EditModalProps) {
-  const [bio, setBio] = useState(user?.bio || "");
-  const [avatar, setAvatar] = useState<File | undefined>(undefined);
-  const [avatarPreview, setAvatarPreview] = useState(user?.avatar || "");
+  const [tab, setTab] = useState<"profile" | "password">(() => "profile");
 
-  async function handleSubmit(e: FormEvent) {
+  // Profile tab states
+  const [bio, setBio] = useState(() => user?.bio || "");
+  const [username, setUsername] = useState(() => user?.username || "");
+  const [avatar, setAvatar] = useState<File | undefined>(undefined);
+  const [avatarPreview, setAvatarPreview] = useState(() => user?.avatar || "");
+
+  // Password tab states
+  const [currentPassword, setCurrentPassword] = useState(() => "");
+  const [newPassword, setNewPassword] = useState(() => "");
+  const [confirmPassword, setConfirmPassword] = useState(() => "");
+  const [passwordError, setPasswordError] = useState(() => "");
+
+  async function handleSubmitProfile(e: FormEvent) {
     e.preventDefault();
-    await onSave({ bio, avatar });
+    await onSave({ bio, avatar, username });
+    onClose();
+  }
+
+  async function handleSubmitPassword(e: FormEvent) {
+    e.preventDefault();
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError("As senhas não coincidem");
+      return;
+    }
+
+    if (newPassword.length < 8) {
+      setPasswordError("A nova senha deve ter pelo menos 8 caracteres");
+      return;
+    }
+
+    await onSave({ currentPassword, newPassword });
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setPasswordError("");
     onClose();
   }
 
@@ -47,41 +84,121 @@ export function EditModal({ open, onClose, onSave, user }: EditModalProps) {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <h2>Editar perfil</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Bio:
-            <textarea
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              className={styles.textarea}
-              placeholder="Conte um pouco sobre você"
-            />
-          </label>
+        <h2>Editar conta</h2>
 
-          <div className={styles.avatarPreviewContainer}>
-            <p>Avatar atual:</p>
-            <img
-              src={avatarPreview || defaultProfile}
-              alt="Preview do avatar"
-              className={styles.avatarPreview}
-            />
-          </div>
+        <div className={styles.tabs}>
+          <button
+            className={`${styles.tab} ${tab === "profile" ? styles.active : ""}`}
+            onClick={() => setTab("profile")}
+          >
+            Perfil
+          </button>
+          <button
+            className={`${styles.tab} ${tab === "password" ? styles.active : ""}`}
+            onClick={() => setTab("password")}
+          >
+            Senha
+          </button>
+        </div>
 
-          <label>
-            Novo avatar: 
-            {" "}<input type="file" accept="image/*" onChange={handleAvatarChange} />
-          </label>
+        {tab === "profile" && (
+          <form onSubmit={handleSubmitProfile}>
+            <label>
+              Username:
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Seu nome de usuário"
+              />
+            </label>
 
-          <div className={styles.actions}>
-            <button type="submit" className={styles.button}>
-              Salvar
-            </button>
-            <button type="button" onClick={onClose} className={styles.button}>
-              Cancelar
-            </button>
-          </div>
-        </form>
+            <label>
+              Bio:
+              <textarea
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                className={styles.textarea}
+                placeholder="Conte um pouco sobre você"
+              />
+            </label>
+
+            <div className={styles.avatarPreviewContainer}>
+              <p>Avatar atual:</p>
+              <img
+                src={avatarPreview || defaultProfile}
+                alt="Preview do avatar"
+                className={styles.avatarPreview}
+              />
+            </div>
+
+            <label>
+              Novo avatar:{" "}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+              />
+            </label>
+
+            <div className={styles.actions}>
+              <button type="submit" className={styles.button}>
+                Salvar
+              </button>
+              <button type="button" onClick={onClose} className={styles.button}>
+                Cancelar
+              </button>
+            </div>
+          </form>
+        )}
+
+        {tab === "password" && (
+          <form onSubmit={handleSubmitPassword}>
+            <label>
+              Senha atual:
+              <input
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="Digite sua senha atual"
+                required
+              />
+            </label>
+
+            <label>
+              Nova senha:
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Digite a nova senha"
+                required
+              />
+            </label>
+
+            <label>
+              Confirmar nova senha:
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirme a nova senha"
+                required
+              />
+            </label>
+
+            {passwordError && <p className={styles.error}>{passwordError}</p>}
+
+            <div className={styles.actions}>
+              <button type="submit" className={styles.button}>
+                Alterar Senha
+              </button>
+              <button type="button" onClick={onClose} className={styles.button}>
+                Cancelar
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );
